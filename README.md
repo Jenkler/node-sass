@@ -3,4 +3,4 @@
 Generate css from scss files
 
 - npm install
-- node bootstrap.js
+- node generate.js
