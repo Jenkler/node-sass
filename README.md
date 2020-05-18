@@ -6,5 +6,7 @@ Generate css from scss files
 - npm install
 ## Update
 - npm update
-## Run
-- node generate.js
+## Generate files from scss
+- ./generate.sh compress
+## Keep watching the files in scss folder. This is used for dev mode
+- ./generate.sh watch
