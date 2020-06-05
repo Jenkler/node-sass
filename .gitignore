@@ -1,5 +1,5 @@
-localhost.crt
-localhost.key
 node_modules/
 package-lock.json
+src/localhost.crt
+src/localhost.key
 TODO
