@@ -1,4 +1,8 @@
 #!/bin/sh
+if [ $(id -u) -eq 0 ]; then
+  printf 'This script cant be run as root\n'
+  exit 1
+fi
 if [ ! -x "$(command -v node)" ]; then
   printf 'Missing: node\n'
   exit 1
@@ -24,7 +28,7 @@ elif [ "$1" = 'compress' ]; then
   if [ ! -d 'node_modules' ]; then npm install; fi
   for f in src/scss/*.scss; do
     file=$(basename $f)
-    if [ "${file:0:1}" = '_' ]; then continue; fi
+    if [ "$(expr substr $file 1 1)" = '_' ]; then continue; fi
     out="src/css/$(basename $f | cut -f 1 -d '.').css"
     npx node-sass --output-style compressed $f | tr -d '\n' | sed 's/\/\*.*\*\///' > $out
     printf "Output: $out\n"
