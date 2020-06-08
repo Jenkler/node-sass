@@ -3,6 +3,10 @@ if [ $(id -u) -eq 0 ]; then
   printf 'This script cant be run as root\n'
   exit 1
 fi
+if [ ! -x "$(command -v openssl)" ]; then
+  printf 'Missing: openssl\n'
+  exit 1
+fi
 if [ ! -x "$(command -v node)" ]; then
   printf 'Missing: node\n'
   exit 1
