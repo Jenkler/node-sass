@@ -28,7 +28,7 @@ elif [ "$1" = 'compress' ]; then
   if [ ! -d 'node_modules' ]; then npm install; fi
   for f in src/scss/*.scss; do
     file=$(basename $f)
-    if [ "$(expr substr $file 1 1)" = '_' ]; then continue; fi
+    if [ "$(printf $file | cut -c 1)" = '_' ]; then continue; fi
     out="src/css/$(basename $f | cut -f 1 -d '.').css"
     npx node-sass --output-style compressed $f | tr -d '\n' | sed 's/\/\*.*\*\///' > $out
     printf "Output: $out\n"
