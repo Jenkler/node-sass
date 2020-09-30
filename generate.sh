@@ -26,23 +26,23 @@ if [ "$1" = 'cert' ]; then
   rm d.ext localhost.csr rootca.crt rootca.key rootca.pem rootca.srl
   mv localhost* src/
 elif [ "$1" = 'clean' ]; then
-  rm -fr node_modules package-lock.json src/localhost* src/css src/js src/watch
-elif [ "$1" = 'compress' ]; then
-  if [ ! -d 'src/css' ]; then mkdir -p src/css; fi
-  if [ ! -d 'node_modules' ]; then npm install; fi
-  for f in src/scss/*.scss; do
-    file=$(basename $f)
-    if [ "$(printf $file | cut -c 1)" = '_' ]; then continue; fi
-    out="src/css/$(basename $f | cut -f 1 -d '.').css"
-    npx node-sass --output-style compressed $f | tr -d '\n' | sed 's/\/\*.*\*\///' > $out
-    printf "Output: $out\n"
-  done
+  rm -fr node_modules package-lock.json src/localhost* src/minify src/js src/watch
 elif [ "$1" = 'js' ]; then
   if [ ! -d 'src/js' ]; then mkdir -p src/js; fi
   if [ ! -d 'node_modules' ]; then npm install; fi
   cat node_modules/popper.js/dist/umd/popper.min.js | sed '/\/\/#/d' | tr -d '\n' | sed 's/\/\*.*\*\///' > src/js/custom.js
   cat node_modules/bootstrap/dist/js/bootstrap.min.js | sed '/\/\/#/d' | tr -d '\n' | sed 's/\/\*.*\*\///' >> src/js/custom.js
   printf "Output: src/js/custom.js\n"
+elif [ "$1" = 'minify' ]; then
+  if [ ! -d 'src/minify' ]; then mkdir -p src/minify; fi
+  if [ ! -d 'node_modules' ]; then npm install; fi
+  for f in src/scss/*.scss; do
+    file=$(basename $f)
+    if [ "$(printf $file | cut -c 1)" = '_' ]; then continue; fi
+    out="src/minify/$(basename $f | cut -f 1 -d '.').css"
+    npx node-sass --output-style compressed $f | tr -d '\n' | sed 's/\/\*.*\*\///' > $out
+    printf "Output: $out\n"
+  done
 elif [ "$1" = 'server' ]; then
   if [ ! -f 'src/localhost.crt' ]; then ./generate.sh cert; fi
   node src/server.js
@@ -52,5 +52,5 @@ elif [ "$1" = 'watch' ]; then
   printf "Waitning for file modification in src/scss\n"
   npx node-sass --output src/watch --recursive --watch src/scss
 else
-  printf "Usage: $0 cert | clean | compress | js | server | watch\n"
+  printf "Usage: $0 cert | clean | js | minify | server | watch\n"
 fi

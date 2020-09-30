@@ -1,19 +1,15 @@
 # node-sass
 
-Generate css from scss files
+A tool for generating custom bootstrap css and js files.
 
-## Install
-- npm install
-## Update
-- npm update
 ## Generate cert for local web server
 - ./generate.sh cert
-## Clean node-sass project from generated files
+## Clean node-sass from generated files and build dependencies
 - ./generate.sh clean
-## Generate files from scss
-- ./generate.sh compress
 ## Generate javascript file
 - ./generate.sh js
+## Generate files from scss
+- ./generate.sh minify
 ## Start local web server
 - ./generate.sh server
 ## Keep watching the files in scss folder. This is used for dev mode
