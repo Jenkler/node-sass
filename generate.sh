@@ -30,8 +30,8 @@ elif [ "$1" = 'clean' ]; then
 elif [ "$1" = 'js' ]; then
   if [ ! -d 'src/js' ]; then mkdir -p src/js; fi
   if [ ! -d 'node_modules' ]; then npm install; fi
-  cat node_modules/popper.js/dist/umd/popper.min.js | sed '/\/\/#/d' | tr -d '\n' | sed 's/\/\*.*\*\///' > src/js/custom.js
-  cat node_modules/bootstrap/dist/js/bootstrap.min.js | sed '/\/\/#/d' | tr -d '\n' | sed 's/\/\*.*\*\///' >> src/js/custom.js
+  cat node_modules/@popperjs/core/dist/umd/popper.min.js | grep 'function' > src/js/custom.js
+  cat node_modules/bootstrap/dist/js/bootstrap.min.js | grep 'function' >> src/js/custom.js
   printf "Output: src/js/custom.js\n"
 elif [ "$1" = 'minify' ]; then
   if [ ! -d 'src/minify' ]; then mkdir -p src/minify; fi
@@ -40,7 +40,7 @@ elif [ "$1" = 'minify' ]; then
     file=$(basename $f)
     if [ "$(printf $file | cut -c 1)" = '_' ]; then continue; fi
     out="src/minify/$(basename $f | cut -f 1 -d '.').css"
-    npx node-sass --output-style compressed $f | tr -d '\n' | sed 's/\/\*.*\*\///' > $out
+    npx sass --style compressed $f | tr -d '\n' | sed 's/\/\*!.* \*\/:root/:root/' > $out
     printf "Output: $out\n"
   done
 elif [ "$1" = 'server' ]; then
@@ -50,7 +50,7 @@ elif [ "$1" = 'watch' ]; then
   if [ ! -d 'src/watch' ]; then mkdir -p src/watch; fi
   if [ ! -d 'node_modules' ]; then npm install; fi
   printf "Waitning for file modification in src/scss\n"
-  npx node-sass --output src/watch --recursive --watch src/scss
+  npx sass --no-source-map --watch src/scss/:src/watch/
 else
   printf "Usage: $0 cert | clean | js | minify | server | watch\n"
 fi
