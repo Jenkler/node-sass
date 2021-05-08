@@ -1,5 +1,8 @@
 node_modules/
 package-lock.json
+src/js/
 src/localhost.crt
 src/localhost.key
+src/minify/
+src/watch/
 TODO
