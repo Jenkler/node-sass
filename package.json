@@ -1,17 +1,26 @@
 {
-  "name": "node-sass",
-  "version": "1.1.3",
-  "description": "",
-  "main": "generate.sh",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "author": {
+    "email": "info@jenkler.se",
+    "name": "Jenkler IT AB"
   },
-  "keywords": [],
-  "author": "Mikael Jenkler",
-  "license": "ISC",
   "dependencies": {
     "@popperjs/core": "^2.0.0",
     "bootstrap": "^5.0.0",
     "sass": "^1.0.0"
-  }
+  },
+  "description": "A tool for generating custom bootstrap css and js files.",
+  "homepage": "https://github.com/Jenkler/node-sass",
+  "keywords": [
+    "bootstrap",
+    "popperjs",
+    "sass",
+    "tool"
+  ],
+  "license": "BSD-3-Clause",
+  "main": "generate.sh",
+  "name": "node-sass",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.1.4"
 }
