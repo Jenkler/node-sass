@@ -19,6 +19,7 @@ $theme-colors: map.set($theme-colors, "grey-light", $color-grey-light);
 $theme-colors: map.merge($theme-colors, ("danger": #000000, "warn": $primary));
 //@debug $theme-colors;
 
+@import "../../node_modules/bootstrap/scss/maps";
 @import "../../node_modules/bootstrap/scss/mixins";
 @import "../../node_modules/bootstrap/scss/utilities";
 
@@ -56,6 +57,7 @@ $utilities: map.set($utilities, "width", "values", 60, 60%);
 @import "../../node_modules/bootstrap/scss/carousel";
 @import "../../node_modules/bootstrap/scss/spinners";
 @import "../../node_modules/bootstrap/scss/offcanvas";
+@import "../../node_modules/bootstrap/scss/placeholders";
 
 // Helpers
 @import "../../node_modules/bootstrap/scss/helpers";
