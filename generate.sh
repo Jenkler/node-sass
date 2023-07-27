@@ -1,5 +1,5 @@
 #!/bin/sh
-if [ $(id -u) -eq 0 ]; then
+if [ "$(id -u)" -eq 0 ]; then
   printf 'This script cant be run as root\n'
   exit 1
 fi
@@ -30,18 +30,16 @@ elif [ "$1" = 'clean' ]; then
 elif [ "$1" = 'js' ]; then
   if [ ! -d 'src/js' ]; then mkdir -p src/js; fi
   if [ ! -d 'node_modules' ]; then npm install; fi
-  cat node_modules/@popperjs/core/dist/umd/popper.min.js | grep 'function' > src/js/custom.js
-  cat node_modules/bootstrap/dist/js/bootstrap.min.js | grep 'function' >> src/js/custom.js
+  grep -h 'function' node_modules/@popperjs/core/dist/umd/popper.min.js node_modules/bootstrap/dist/js/bootstrap.min.js > src/js/custom.js
   printf "Output: src/js/custom.js\n"
 elif [ "$1" = 'minify' ]; then
   if [ ! -d 'src/minify' ]; then mkdir -p src/minify; fi
   if [ ! -d 'node_modules' ]; then npm install; fi
   for f in src/scss/*.scss; do
-    file=$(basename $f)
-    if [ "$(printf $file | cut -c 1)" = '_' ]; then continue; fi
-    out="src/minify/$(basename $f | cut -f 1 -d '.').css"
-    npx sass --style compressed $f | tr -d '\n' | sed 's/\/\*!.* \*\/:root/:root/' > $out
-    printf "Output: $out\n"
+    if [ "$(basename "$f" | cut -c 1)" = '_' ]; then continue; fi
+    out="src/minify/$(basename "${f%.*}").css"
+    npx sass --style compressed "$f" | tr -d '\n' | sed 's/\/\*!.* \*\/:root/:root/' > "$out"
+    printf "Output: %s\n" "$out"
   done
 elif [ "$1" = 'server' ]; then
   if [ ! -f 'src/localhost.crt' ]; then ./generate.sh cert; fi
@@ -52,5 +50,5 @@ elif [ "$1" = 'watch' ]; then
   printf "Waitning for file modification in src/scss\n"
   npx sass --no-source-map --watch src/scss/:src/watch/
 else
-  printf "Usage: $0 cert | clean | js | minify | server | watch\n"
+  printf "Usage: %s cert | clean | js | minify | server | watch\n" "$0"
 fi

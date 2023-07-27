@@ -12,6 +12,7 @@ $primary: #f0f0f0;
 // Configuration
 @import "../../node_modules/bootstrap/scss/functions";
 @import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/variables-dark";
 
 $theme-colors: map.set($theme-colors, "light", $color-light);
 $theme-colors: map.set($theme-colors, "grey-light", $color-grey-light);
