@@ -14,3 +14,6 @@ A tool for generating custom bootstrap css and js files.
 - ./generate.sh server
 ## Keep watching the files in scss folder. This is used for dev mode
 - ./generate.sh watch
+
+# Notes
+- Enable 'Allow invalid certificates for resources loaded from localhost.' in chrome://flags/
